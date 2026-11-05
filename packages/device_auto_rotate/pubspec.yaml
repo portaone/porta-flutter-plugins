@@ -1,0 +1,27 @@
+name: device_auto_rotate
+resolution: workspace
+description: A minimal plugin to check system auto-rotate settings.
+version: 0.0.1
+publish_to: 'none'
+repository: https://github.com/portaone/porta-flutter-plugins/tree/main/packages/device_auto_rotate
+issue_tracker: https://github.com/portaone/porta-flutter-plugins/issues?q=label%3Ap%3Adevice_auto_rotate
+
+environment:
+  sdk: ^3.8.0
+  flutter: ^3.19.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.webtrit.device_auto_rotate
+        pluginClass: DeviceAutoRotatePlugin
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
