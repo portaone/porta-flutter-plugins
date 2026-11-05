@@ -7,6 +7,7 @@ PortaOne's open-source Flutter and Dart packages, published to [pub.dev](https:/
 | Package | pub.dev | Platforms | Description |
 |---|---|---|---|
 | [flutter_webrtc_noise_suppression](packages/flutter_webrtc_noise_suppression) | [![pub package](https://img.shields.io/pub/v/flutter_webrtc_noise_suppression.svg)](https://pub.dev/packages/flutter_webrtc_noise_suppression) | Android, iOS | Noise suppression (RNNoise) of the voice an app sends through [flutter_webrtc](https://pub.dev/packages/flutter_webrtc) |
+| [device_auto_rotate](packages/device_auto_rotate) | not published yet | Android | Reads and watches the Android system auto-rotate setting; `true` on other platforms |
 
 ## Repository layout
 
