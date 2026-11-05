@@ -6,11 +6,11 @@ with_rnnoise02 = ENV['FLUTTER_WEBRTC_NS_RNNOISE02'] == '1'
 
 Pod::Spec.new do |s|
   s.name             = 'flutter_webrtc_noise_suppression'
-  s.version          = '0.0.1'
+  s.version          = '0.1.0'
   s.summary          = 'flutter_webrtc add-on: noise suppression (RNNoise) of the captured voice.'
-  s.homepage         = 'https://github.com/SERDUN/flutter_webrtc_noise_suppression'
+  s.homepage         = 'https://github.com/portaone/porta-flutter-plugins/tree/main/packages/flutter_webrtc_noise_suppression'
   s.license          = { :file => '../LICENSE' }
-  s.author           = 'Dmytro Serdun'
+  s.author           = 'PortaOne, Inc.'
   s.source           = { :path => '.' }
   s.source_files     = 'flutter_webrtc_noise_suppression/Sources/**/*.{h,m,c,swift}'
   # RNNoise v0.2 is compiled only through its units/, which rename its globals: its own sources and

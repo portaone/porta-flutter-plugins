@@ -1,6 +1,6 @@
 # flutter_webrtc_noise_suppression
 
-A [flutter_webrtc](https://github.com/flutter-webrtc/flutter-webrtc) add-on: noise suppression of the voice an app sends. RNNoise runs in flutter_webrtc's capture post-processing slot, after the platform's echo cancellation and noise suppression and right before the encoder, with a suppression level and a voice activity stream. RNNoise v0.1.1 by default, v0.2 when the app builds it in. Android and iOS. Experimental. The plugin is built so that another engine joins it as a pull request: see [Adding an engine](docs/adding-an-engine.md).
+A [flutter_webrtc](https://github.com/flutter-webrtc/flutter-webrtc) add-on: noise suppression of the voice an app sends. RNNoise runs in flutter_webrtc's capture post-processing slot, after the platform's echo cancellation and noise suppression and right before the encoder, with a suppression level and a voice activity stream. RNNoise v0.1.1 by default, v0.2 when the app builds it in. Android and iOS. Experimental. The plugin is built so that another engine joins it as a pull request: see [Adding an engine](doc/adding-an-engine.md).
 
 ## Architecture
 
@@ -27,7 +27,7 @@ flowchart TB
     slot --> encoder(["Encoder of the negotiated codec<br/>(Opus, G.711, G.722, ...)"]) --> net([Network])
 ```
 
-The engine hears the voice after echo cancellation, the platform's noise suppression and gain control, and is the last thing that changes it before the encoder. That is the place an extra denoiser does not hurt echo cancellation; a hook before the processing module (raw microphone samples) would feed the echo canceller a signal it no longer recognizes. The codec sets the slot's rate: 48 kHz for Opus, 16 kHz for G.711 and G.722, where the format adapter takes RNNoise up to 48 kHz and back ([the capture path](docs/capture-path.md)).
+The engine hears the voice after echo cancellation, the platform's noise suppression and gain control, and is the last thing that changes it before the encoder. That is the place an extra denoiser does not hurt echo cancellation; a hook before the processing module (raw microphone samples) would feed the echo canceller a signal it no longer recognizes. The codec sets the slot's rate: 48 kHz for Opus, 16 kHz for G.711 and G.722, where the format adapter takes RNNoise up to 48 kHz and back ([the capture path](doc/capture-path.md)).
 
 | Layer | Where | Knows about |
 |---|---|---|
@@ -42,9 +42,17 @@ The add-on works with the engines only through their interface and finds them by
 
 ```yaml
 dependencies:
+  flutter_webrtc_noise_suppression: ^0.1.0
+```
+
+Or from git, at a commit of the repository it is developed in:
+
+```yaml
+dependencies:
   flutter_webrtc_noise_suppression:
     git:
-      url: https://github.com/SERDUN/flutter_webrtc_noise_suppression.git
+      url: https://github.com/portaone/porta-flutter-plugins.git
+      path: packages/flutter_webrtc_noise_suppression
       ref: <commit>
 ```
 
@@ -59,20 +67,20 @@ await bridge.setSuppressionLevel(0.5); // 1.0 fully denoised, 0.0 the voice as i
 bridge.vadStream.listen((p) => print('voice $p')); // 0.0..1.0, about ten a second
 ```
 
-The level, the voice activity stream, what `attach` returns, the logs, `measure` and the diagnostics: [docs/usage.md](docs/usage.md).
+The level, the voice activity stream, what `attach` returns, the logs, `measure` and the diagnostics: [doc/usage.md](doc/usage.md).
 
 ## Documentation
 
 | Document | What it covers |
 |---|---|
-| [docs/capture-path.md](docs/capture-path.md) | codecs and the slot rate, the processing before the slot, the platform effects measured on phones |
-| [docs/wiring.md](docs/wiring.md) | from `attach()` to a frame in the slot and back out, step by step on both platforms |
-| [docs/usage.md](docs/usage.md) | the level, `vadStream`, `attach` results, the log lines, `measure`, the slot input dump |
-| [docs/engines.md](docs/engines.md) | RNNoise v0.1.1 and v0.2, their cost on phones, how v0.2 is built in |
-| [docs/default-suppression.md](docs/default-suppression.md) | the phone's or WebRTC's own suppression against RNNoise, measured in calls |
-| [docs/adding-an-engine.md](docs/adding-an-engine.md) | for contributors: what a pull request with a new engine adds |
-| [docs/traps.md](docs/traps.md) | what behaved unexpectedly while building the plugin |
-| [docs/checks.md](docs/checks.md) | the tests on the host, the JVM, a device and an iPhone |
+| [doc/capture-path.md](doc/capture-path.md) | codecs and the slot rate, the processing before the slot, the platform effects measured on phones |
+| [doc/wiring.md](doc/wiring.md) | from `attach()` to a frame in the slot and back out, step by step on both platforms |
+| [doc/usage.md](doc/usage.md) | the level, `vadStream`, `attach` results, the log lines, `measure`, the slot input dump |
+| [doc/engines.md](doc/engines.md) | RNNoise v0.1.1 and v0.2, their cost on phones, how v0.2 is built in |
+| [doc/default-suppression.md](doc/default-suppression.md) | the phone's or WebRTC's own suppression against RNNoise, measured in calls |
+| [doc/adding-an-engine.md](doc/adding-an-engine.md) | for contributors: what a pull request with a new engine adds |
+| [doc/traps.md](doc/traps.md) | what behaved unexpectedly while building the plugin |
+| [doc/checks.md](doc/checks.md) | the tests on the host, the JVM, a device and an iPhone |
 
 ## Requirements
 

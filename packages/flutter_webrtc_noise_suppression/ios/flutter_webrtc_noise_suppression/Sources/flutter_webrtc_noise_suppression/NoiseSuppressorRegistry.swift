@@ -9,7 +9,7 @@ import Foundation
 /// Internal to the plugin: an app picks one of the engines the plugin ships
 /// (`WebrtcNoiseSuppressionEngine.rnnoise`), it does not bring its own. A new engine comes as a pull
 /// request: its `NSPNoiseSuppressor`, one entry in `factories` below, its name in Dart (see the
-/// docs/adding-an-engine.md). The plugin, the chain and the `FormatAdapter` do not change for it.
+/// doc/adding-an-engine.md). The plugin, the chain and the `FormatAdapter` do not change for it.
 /// Safe to use from any thread; a factory runs off the main thread and may take its time (loading
 /// a model). A factory that returns nil could not create its engine.
 final class NoiseSuppressorRegistry {
