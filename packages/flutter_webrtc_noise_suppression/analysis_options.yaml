@@ -1,0 +1,15 @@
+include: ../../analysis_options.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
+
+formatter:
+  page_width: 120
+
+analyzer:
+  # Flutter copies the whole plugin, example included, into example/build/ios/SourcePackages for
+  # Swift Package Manager; that copy is not this package.
+  exclude:
+    - build/**
+    - example/build/**

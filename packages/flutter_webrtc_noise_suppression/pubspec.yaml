@@ -1,0 +1,38 @@
+name: flutter_webrtc_noise_suppression
+description: "flutter_webrtc add-on: noise suppression (RNNoise) of the captured voice in flutter_webrtc's capture post-processing slot."
+version: 0.1.0
+repository: https://github.com/portaone/porta-flutter-plugins/tree/main/packages/flutter_webrtc_noise_suppression
+issue_tracker: https://github.com/portaone/porta-flutter-plugins/issues?q=label%3Ap%3Aflutter_webrtc_noise_suppression
+topics:
+  - webrtc
+  - noise-suppression
+  - audio
+  - rnnoise
+
+resolution: workspace
+
+environment:
+  sdk: ^3.8.0
+  flutter: '>=3.19.0'
+
+# flutter_webrtc's public capture post-processing slot (AudioProcessingAdapter on Android,
+# AudioManager.capturePostProcessingAdapter on iOS), the accessor of its Android controller and its
+# SPM `WebRTC` product, checked at 1.6.3.
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_webrtc: ^1.6.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.portaone.flutter_webrtc_noise_suppression
+        pluginClass: WebrtcNoiseSuppressionPlugin
+      ios:
+        pluginClass: WebrtcNoiseSuppressionPlugin

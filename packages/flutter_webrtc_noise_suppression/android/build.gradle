@@ -1,0 +1,83 @@
+group = "com.portaone.flutter_webrtc_noise_suppression"
+version = "1.0-SNAPSHOT"
+
+buildscript {
+    ext.kotlin_version = "2.3.21"
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.android.tools.build:gradle:8.13.0")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+android {
+    namespace = "com.portaone.flutter_webrtc_noise_suppression"
+
+    compileSdk = 36
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main.java.srcDirs += "src/main/kotlin"
+        test.java.srcDirs += "src/test/kotlin"
+    }
+
+    // The C core (noise_suppressor.h + RNNoise) is one copy, inside the iOS Swift package, which
+    // cannot reach sources outside its directory; CMake builds the same files.
+    externalNativeBuild {
+        cmake {
+            path = file("src/main/cpp/CMakeLists.txt")
+        }
+    }
+
+    // RNNoise v0.2 adds about 5 MB per ABI, so it is built only when the app asks for it, with
+    // `flutter_webrtc_noise_suppression.rnnoise02=true` in its android/gradle.properties.
+    def withRnnoise02 = (findProperty("flutter_webrtc_noise_suppression.rnnoise02") ?: "false").toString().toBoolean()
+
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                arguments "-DNS_WITH_RNNOISE02=${withRnnoise02 ? "ON" : "OFF"}"
+            }
+        }
+        minSdk = 24
+    }
+
+    dependencies {
+        // flutter_webrtc comes from this plugin's pubspec: the Flutter Gradle plugin adds a
+        // plugin's plugin dependencies to its build.
+        //
+        // flutter_webrtc's AudioProcessingAdapter extends libwebrtc's
+        // ExternalAudioProcessingFactory.AudioProcessing, and flutter_webrtc takes libwebrtc as
+        // `implementation`, so it is not on this module's compile classpath; at run time
+        // flutter_webrtc's own copy is the one loaded. The version is upstream flutter_webrtc
+        // 1.6.3's; only the AudioProcessing interface is compiled against.
+        compileOnly("io.github.webrtc-sdk:android:150.7871.04")
+
+        // JVM tests of the format adapter and the registry: no phone, no native library.
+        testImplementation("junit:junit:4.13.2")
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}

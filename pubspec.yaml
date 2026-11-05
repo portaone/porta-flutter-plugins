@@ -7,7 +7,9 @@ publish_to: none
 environment:
   sdk: ^3.9.0
 
-workspace: []
+workspace:
+  - packages/flutter_webrtc_noise_suppression
+  - packages/flutter_webrtc_noise_suppression/example
 
 dev_dependencies:
   flutter_lints: ^6.0.0
