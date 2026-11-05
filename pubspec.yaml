@@ -1,0 +1,28 @@
+name: porta_flutter_plugins
+description: PortaOne's open-source Flutter and Dart packages. The workspace root; it is never published.
+publish_to: none
+
+# Pub workspaces need Dart 3.6; melos 8 needs 3.9, so working in this repository needs Dart 3.9
+# (Flutter 3.35). Each package states what its users need in its own pubspec.
+environment:
+  sdk: ^3.9.0
+
+workspace: []
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  melos: ^8.10.0
+
+melos:
+  scripts:
+    analyze:
+      description: Run flutter analyze in every package.
+      exec: flutter analyze .
+    format:
+      description: Fail when a Dart file is not formatted.
+      exec: dart format --set-exit-if-changed .
+    test:
+      description: Run flutter test in every package that has a test/ directory.
+      exec: flutter test
+      packageFilters:
+        dirExists: test
