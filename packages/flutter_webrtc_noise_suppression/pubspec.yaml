@@ -1,8 +1,15 @@
 name: flutter_webrtc_noise_suppression
 description: "flutter_webrtc add-on: noise suppression (RNNoise) of the captured voice in flutter_webrtc's capture post-processing slot."
-version: 0.0.1
-publish_to: none
-homepage: https://github.com/SERDUN/flutter_webrtc_noise_suppression
+version: 0.1.0
+repository: https://github.com/portaone/porta-flutter-plugins/tree/main/packages/flutter_webrtc_noise_suppression
+issue_tracker: https://github.com/portaone/porta-flutter-plugins/issues?q=label%3Ap%3Aflutter_webrtc_noise_suppression
+topics:
+  - webrtc
+  - noise-suppression
+  - audio
+  - rnnoise
+
+resolution: workspace
 
 environment:
   sdk: ^3.8.0

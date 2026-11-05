@@ -1,0 +1,35 @@
+# What stays out of the pub.dev archive. A .pubignore replaces .gitignore for publishing, so the
+# entries of .gitignore are repeated here.
+
+# Build output and tool state
+build/
+example/build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+pubspec.lock
+coverage/
+.build/
+.swiftpm/
+
+# The C core's host tests: they need the Makefile and a C compiler, not a Flutter app
+Makefile
+test/native/
+
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
