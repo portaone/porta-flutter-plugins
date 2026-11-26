@@ -1,5 +1,7 @@
 ## Unreleased
 
+* Android: the native library is aligned to 16 KB memory pages, as Google Play requires for apps targeting Android 15 and up.
+
 ## 0.1.0
 
 First release on pub.dev. Experimental.

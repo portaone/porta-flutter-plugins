@@ -55,6 +55,10 @@ target_compile_options(flutter_webrtc_noise_suppression PRIVATE -O3 -fvisibility
 
 target_link_libraries(flutter_webrtc_noise_suppression m)
 
+# Aligned to 16 KB memory pages, as Google Play requires for apps targeting Android 15 and up: an NDK
+# older than r28 links to 4 KB pages unless told otherwise.
+target_link_options(flutter_webrtc_noise_suppression PRIVATE "-Wl,-z,max-page-size=16384")
+
 if(NS_WITH_RNNOISE02)
   target_sources(flutter_webrtc_noise_suppression PRIVATE $<TARGET_OBJECTS:ns_rnnoise02>)
   target_compile_definitions(flutter_webrtc_noise_suppression PRIVATE NS_WITH_RNNOISE02)
